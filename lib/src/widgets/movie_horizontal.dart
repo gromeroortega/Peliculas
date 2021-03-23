@@ -1,4 +1,5 @@
 import 'package:curso_peliculas/src/models/pelicula_model.dart';
+import 'package:curso_peliculas/src/pages/pelicula_detalle.dart';
 import 'package:flutter/material.dart';
 
 class MovieHorizontal extends StatelessWidget {
@@ -36,7 +37,7 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _crearTarjeta(BuildContext context, Pelicula pelicula) {
-    return Container(
+    final tarjeta = Container(
       margin: EdgeInsets.only(right: 1.0),
       //color: Colors.amber,
       child: Column(
@@ -59,6 +60,14 @@ class MovieHorizontal extends StatelessWidget {
           )
         ],
       ),
+    );
+
+    return GestureDetector(
+      child: tarjeta,
+      onTap: () {
+        //Manda los argumentos "arguments", a la ruta definida "detalle" en el main.
+        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+      },
     );
   }
 /* Código sustituido por _crear tarjetas*/

@@ -1,9 +1,12 @@
 /* Powered by Zharka Curso de Flutter Udemy*/
 //Importación de la librería de Widgets de Flutter
+import 'package:curso_peliculas/src/models/pelicula_model.dart';
+import 'package:curso_peliculas/src/pages/pelicula_detalle.dart';
 import 'package:flutter/material.dart';
 
 //Importación de archivos a los que se hace referencia
 import 'package:curso_peliculas/src/pages/home_page.dart';
+import 'package:curso_peliculas/src/pages/pelicula_detalle.dart';
 import 'src/pages/home_page.dart';
 
 /*Clase principal para ejecución de la app main.
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => HomePage(),
+        'detalle': (BuildContext context) => PeliculaDetalle(),
       },
     );
   }
