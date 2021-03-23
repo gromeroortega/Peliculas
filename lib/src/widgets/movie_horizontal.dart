@@ -61,7 +61,9 @@ class MovieHorizontal extends StatelessWidget {
       ),
     );
   }
+/* Código sustituido por _crear tarjetas*/
 
+/*
   List<Widget> _tarjetas(BuildContext context, Pelicula pelicula) {
     return peliculas.map((pelicula) {
       return Container(
@@ -89,5 +91,5 @@ class MovieHorizontal extends StatelessWidget {
         ),
       );
     }).toList();
-  }
+  }*/
 }
