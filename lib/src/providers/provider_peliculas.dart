@@ -9,6 +9,7 @@ class PeliculasProvider {
   String _language = 'es-ES';
   int _pagePopular = 0;
   int _pageCines = 0;
+  bool _cargando = false;
   /*Inicica codigo del Stream*/
 
   //Crea
@@ -48,24 +49,33 @@ class PeliculasProvider {
       'language': _language,
       'page': _pageCines.toString()
     });
-    print(url);
+    //print(url);
     return await _procesarRespuesta(url);
   }
 
   Future<List<Pelicula>> getPopulars() async {
+    if (_cargando) return [];
+
+    _cargando = true;
     _pagePopular++;
+
+    //print('cargando más peliculas...');
+    //print(_cargando);
+
     final url = Uri.https(_url, '3/movie/popular', {
       'api_key': _apikey,
       'language': _language,
       'page': _pagePopular.toString()
     });
-    print(url);
+    //print(url);
 
-    final respuesta = _procesarRespuesta(url);
+    final respuesta = await _procesarRespuesta(url);
 
     _populares.addAll(respuesta);
+    //Desde aquí se agrega el sink al Scream.
     popularesSink(_populares);
-
+    _cargando = false;
+    //print('Segundo $_cargando');
     return respuesta;
   }
 }

@@ -51,7 +51,10 @@ class HomePage extends StatelessWidget {
               stream: peliculas.popularesStream,
               builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                 if (snapshot.hasData) {
-                  return MovieHorizontal(peliculas: snapshot.data);
+                  return MovieHorizontal(
+                      //La propiedad siguientePelicula se crea en el home_page como una funcion.
+                      peliculas: snapshot.data,
+                      siguientePagina: peliculas.getPopulars);
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
