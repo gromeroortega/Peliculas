@@ -67,4 +67,12 @@ class Pelicula {
       return 'https://www.themoviedb.org/t/p/original/$posterPath';
     }
   }
+
+  getBackgroundPath() {
+    if (backdropPath == null) {
+      return 'https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg';
+    } else {
+      return 'https://www.themoviedb.org/t/p/original/$backdropPath';
+    }
+  }
 }

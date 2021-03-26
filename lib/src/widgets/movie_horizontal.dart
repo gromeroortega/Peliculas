@@ -1,5 +1,4 @@
 import 'package:curso_peliculas/src/models/pelicula_model.dart';
-import 'package:curso_peliculas/src/pages/pelicula_detalle.dart';
 import 'package:flutter/material.dart';
 
 class MovieHorizontal extends StatelessWidget {

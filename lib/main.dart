@@ -1,7 +1,5 @@
 /* Powered by Zharka Curso de Flutter Udemy*/
 //Importación de la librería de Widgets de Flutter
-import 'package:curso_peliculas/src/models/pelicula_model.dart';
-import 'package:curso_peliculas/src/pages/pelicula_detalle.dart';
 import 'package:flutter/material.dart';
 
 //Importación de archivos a los que se hace referencia
@@ -18,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override //Palabra reservada para sobre escribir clases.
 
   Widget build(BuildContext context) {
-    //Se seobre escribe el constructor que retorna
+    //Se seobre escribe el constructor que retorna MaterialApp (Diseños de Material)
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Peliculas',
