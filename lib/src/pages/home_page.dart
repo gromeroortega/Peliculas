@@ -14,7 +14,12 @@ class HomePage extends StatelessWidget {
           title: Text('Películas'),
           backgroundColor: Colors.teal,
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.search), onPressed: () {})
+            IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  //clase abstracta
+                  //showSearch(context: context, delegate: delegate)
+                })
           ],
         ),
         body: Container(
@@ -47,6 +52,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20.0),
                 child: Text('Populares',
                     style: Theme.of(context).textTheme.headline5)),
+/*El Stream se ejecuta cada vez que se emita un valor en el stream y un future se ejecuta solo una vez*/
             StreamBuilder(
               stream: peliculas.popularesStream,
               builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -54,6 +60,7 @@ class HomePage extends StatelessWidget {
                   return MovieHorizontal(
                       //La propiedad siguientePelicula se crea en el home_page como una funcion.
                       peliculas: snapshot.data,
+                      //Definición de la función siguientePagina es peliculas.getPopulares
                       siguientePagina: peliculas.getPopulars);
                 } else {
                   return Center(child: CircularProgressIndicator());

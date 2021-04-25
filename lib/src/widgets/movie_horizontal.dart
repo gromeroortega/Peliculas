@@ -13,7 +13,9 @@ class MovieHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
+    /*Listener del _pageController */
     _pageController.addListener(() {
+      /* Si la posición actual es mayor o igual a la posición maxima menos 200 px */
       if (_pageController.position.pixels >=
           _pageController.position.maxScrollExtent - 200) {
         siguientePagina();
@@ -23,26 +25,29 @@ class MovieHorizontal extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         //color: Colors.black,
         height: _screenSize.height * 0.30,
+/*Diferencia entre PageView (Crea todo y lo rendereriza al instante no importando cuanto sea)
+PageView.builder (Crea y renderiza bajo demanda) */
         child: PageView.builder(
-          pageSnapping: false,
-          controller: _pageController,
-          itemCount: peliculas
-              .length, //Le dice el builder ccuentos items va a renderizar
-          itemBuilder: (contex, i) {
-            return _crearTarjeta(contex, peliculas[i]);
-          },
-          //children: _tarjetas(context),
-        ));
+            pageSnapping: false,
+            controller: _pageController,
+            itemCount: peliculas.length,
+            // itemcount le dice el builder cuantos items va a renderizar, porque el pageview
+            // toma como largo el total de peliculas que se obtuvieron del request
+            itemBuilder: (contex, i) => _crearTarjeta(contex, peliculas[i])
+            //children: _tarjetas(context),
+            ));
   }
 
   Widget _crearTarjeta(BuildContext context, Pelicula pelicula) {
+    pelicula.peliculak = '${pelicula.id}poster';
+
     final tarjeta = Container(
       margin: EdgeInsets.only(right: 1.0),
       //color: Colors.amber,
       child: Column(
         children: <Widget>[
           Hero(
-            tag: pelicula.id,
+            tag: pelicula.peliculak,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: FadeInImage(

@@ -1,9 +1,12 @@
+//Import librerias de dart
 import 'dart:convert';
 import 'dart:async';
+import 'package:http/http.dart' as http;
+//Imports de archivos del proyecto
 import 'package:curso_peliculas/src/models/actores_models.dart';
 import 'package:curso_peliculas/src/models/pelicula_model.dart';
-import 'package:http/http.dart' as http;
 
+//Clase principal Peliculas
 class PeliculasProvider {
   String _apikey = '689b60a9ca482470f05cd372ec59e840';
   String _url = 'api.themoviedb.org';
@@ -18,7 +21,9 @@ class PeliculasProvider {
   List<Pelicula> _populares = [];
 
   //Broadcast para escuchar en muchos lugares
-  // El controller esta es mi tuberia
+  // El controller esta es mi tuberia siempre se debe especificar que va a pasar por el stream
+  // Para este caso es una <Lista<Peliculas>>. El broadcast perimite al Satrem escuchar desde
+  // cualquier parte de la app
   final _popularesStreamCtr = StreamController<List<Pelicula>>.broadcast();
 
   /*En estos gets se renombra la instancia del stream, para no instancialos cada que los necesitemos*/
@@ -32,29 +37,42 @@ class PeliculasProvider {
   */
   Stream<List<Pelicula>> get popularesStream => _popularesStreamCtr.stream;
 
+  /*Cierre de Stream, aquí no se usa pero es neceraria*/
   void disposeStream() {
     _popularesStreamCtr?.close();
   }
 
   /*Termina el codigo del Stream*/
+
+  //Método que hace la petición al API, es un future que devuelve una lista de datos.
   Future<List<Pelicula>> _procesarRespuesta(Uri url) async {
+    //En la variable "resp" espera y almacena la respuesta de la URL que se almacena en la variable "url"
     final resp = await http.get(url);
+    //En la variable decodeData se decodifica el JSON almacenado en "resp"
     final decodeData = json.decode(resp.body);
+    //En la variable "pelis" almacena la respuesta mapeada con el método fromJson del modelo peliculas.
     final pelis = new Peliculas.fromJsonList(decodeData['results']);
+    //Retorna los datos mapeados.
     return pelis.items;
   }
 
+  //Método que construye la url para obtener las películas que estan en cines, y llama al método proocesarRespuesta.
   Future<List<Pelicula>> getEnCines() async {
+    //Suma uno a la variable que almacena el número de la página
     _pageCines++;
+    //Construye la url del servicio a consumir.
     final url = Uri.https(_url, '3/movie/now_playing', {
       'api_key': _apikey,
       'language': _language,
       'page': _pageCines.toString()
     });
     //print(url);
+    //Retorna la respues del metodo procesarRespuesta
     return await _procesarRespuesta(url);
   }
 
+  //Método que construye la url para obtener las películas populares y llama al método porcesarRespuesta.
+  //
   Future<List<Pelicula>> getPopulars() async {
     if (_cargando) return [];
 
@@ -72,7 +90,8 @@ class PeliculasProvider {
     //print(url);
 
     final respuesta = await _procesarRespuesta(url);
-
+    //Al agregar la lista que esta almacenada en respuesta a _populares se debe definar el
+    //tipo de dato de _populares y es <List<Pelicula>>
     _populares.addAll(respuesta);
     //Desde aquí se agrega el sink al Scream.
     popularesSink(_populares);
