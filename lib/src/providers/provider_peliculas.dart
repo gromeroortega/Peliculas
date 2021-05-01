@@ -15,6 +15,7 @@ class PeliculasProvider {
   int _pageCines = 0;
   bool _cargando = false;
   String movieId;
+
   /*Inicica codigo del Stream*/
 
   //Crea
@@ -112,5 +113,16 @@ class PeliculasProvider {
     final cast = new Actores.fromJsonList(decodeData['cast']);
 
     return cast.actores;
+  }
+
+  Future<List<Pelicula>> burscarPelicula(String query) async {
+    //Suma uno a la variable que almacena el número de la página
+    _pageCines++;
+    //Construye la url del servicio a consumir.
+    final url = Uri.https(_url, '3/search/movie',
+        {'api_key': _apikey, 'language': _language, 'query': query});
+    //print(url);
+    //Retorna la respues del metodo procesarRespuesta
+    return await _procesarRespuesta(url);
   }
 }
