@@ -8,7 +8,7 @@ import 'package:curso_peliculas/src/models/pelicula_model.dart';
 
 //Clase principal Peliculas
 class PeliculasProvider {
-  String _apikey = '689b60a9ca482470f05cd372ec59e840';
+  String _apikey = 'apikey';
   String _url = 'api.themoviedb.org';
   String _language = 'es-ES';
   int _pagePopular = 0;
